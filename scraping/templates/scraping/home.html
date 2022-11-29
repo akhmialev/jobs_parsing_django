@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{%for v in vacancy%}
+<div class="card my-3">
+    <h5 class="card-header"><a href="{{v.url}}" target="_blank">{{v.title}}</a></h5>
+    <div class="card-body">
+        <p class="card-text">{{v.description|truncatewords:100}}</p>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
