@@ -8,7 +8,15 @@
     <h5 class="card-header"><a href="{{v.url}}" target="_blank">{{v.title}}</a></h5>
     <div class="card-body">
         <p class="card-text">{{v.description|truncatewords:100}}</p>
+        <p>{{ v.city.name }} | {{ v.language.name }} | <small>{{ v.timestamp|date:"SHORT_DATE_FORMAT" }}</small></p>
     </div>
 </div>
 {% endfor %}
+
+<form method="get" action="">
+    {{ form.as_p }}
+    <input type="submit" value="Click">
+</form>
 {% endblock %}
+
+

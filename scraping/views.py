@@ -1,15 +1,25 @@
 from django.shortcuts import render
 from .models import Vacancy
-import datetime
+from .forms import FindForm
 
 
 def home_view(request):
-    vacancy = Vacancy.objects.all()
+    form = FindForm()
+    city = request.GET.get('city')
+    language = request.GET.get('language')
+
+    if city or language:
+        _filter = {}
+        if city:
+            _filter['city__slug'] = city
+        if language:
+            _filter['language__slug'] = language
+
+        vacancy = Vacancy.objects.filter(**_filter)
     title = 'home'
-    date = datetime.datetime.now()
     context = {
         'vacancy': vacancy,
         'title': title,
-        'date': date
+        'form': form
     }
     return render(request, 'scraping/home.html', context=context)
