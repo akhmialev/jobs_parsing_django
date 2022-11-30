@@ -7,7 +7,7 @@ def home_view(request):
     form = FindForm()
     city = request.GET.get('city')
     language = request.GET.get('language')
-
+    vacancy = {}
     if city or language:
         _filter = {}
         if city:
@@ -16,6 +16,7 @@ def home_view(request):
             _filter['language__slug'] = language
 
         vacancy = Vacancy.objects.filter(**_filter)
+
     title = 'home'
     context = {
         'vacancy': vacancy,
