@@ -5,22 +5,26 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 
-def write_json(datas):
-    with open('rabota.json', 'w', encoding='utf-8') as file:
-        json.dump(datas, file, ensure_ascii=False, indent=4)
+# def write_json(datas):
+#     with open('rabota.json', 'w', encoding='utf-8') as file:
+#         json.dump(datas, file, ensure_ascii=False, indent=4)
 
 
-def get_data(html, url, errors):
+def get_data(html, url, errors, headers):
     soup = BeautifulSoup(html, 'lxml')
     cards = soup.find_all('div', class_='serp-item')
     datas = []
     if cards:
         for card in cards:
-            title = card.find('a', class_='serp-item__title').text.strip()
             href = card.find('a', class_='serp-item__title').get('href')
+            title = card.find('a', class_='serp-item__title').text.strip()
             company = ' '.join(card.find('a', attrs={'data-qa': 'vacancy-serp__vacancy-employer'}).text.strip().split())
-            content = ''
             city = ' '.join(card.find('div', attrs={'data-qa': 'vacancy-serp__vacancy-address'}).text.strip().split())
+            content_data = requests.get(href, headers=headers)
+            if content_data.ok:
+                soup = BeautifulSoup(content_data.text, 'lxml')
+                content = ' '.join(soup.find('div', attrs={'data-qa': 'vacancy-description'}).text.strip().split())
+
             data = {
                 'title': title,
                 'href': href,
@@ -29,7 +33,7 @@ def get_data(html, url, errors):
                 'city': city
             }
             datas.append(data)
-        write_json(datas)
+        # write_json(datas)
         return datas
     else:
         errors.append({'url': url, 'title': 'Tag does not exist'})
@@ -49,8 +53,8 @@ def main():
     headers = {'User-Agent': ua.random}
     errors = []
     html = get_html(url, headers, errors)
-    data = get_data(html, url, errors)
-    print(errors)
+    data = get_data(html, url, errors, headers)
+    return data, errors
 
 
 if __name__ == '__main__':
