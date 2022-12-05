@@ -1,3 +1,4 @@
+import jsonfield
 from django.db import models
 
 from scraping.utils import from_cyrillic_to_eng
@@ -52,3 +53,8 @@ class Vacancy(models.Model):
     class Meta:
         verbose_name = 'Вакансия'
         verbose_name_plural = 'Вакансии'
+
+
+class Error(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    data = jsonfield.JSONField()

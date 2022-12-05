@@ -44,8 +44,7 @@ def get_html(url, headers, errors):
         errors.append({'url': url, 'title': 'Page do not response'})
 
 
-def main():
-    url = 'https://jobs.dou.ua/vacancies/?city=%D0%9A%D0%B8%D1%97%D0%B2&category=Python'
+def main(url):
     ua = UserAgent()
     headers = {'User-Agent': ua.random}
     errors = []
@@ -53,6 +52,3 @@ def main():
     data = get_data(html, url, errors)
     return data, errors
 
-
-if __name__ == "__main__":
-    main()
