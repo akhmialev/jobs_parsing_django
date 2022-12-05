@@ -19,7 +19,7 @@ def get_data(html, url, errors, headers):
             href = card.find('a', class_='serp-item__title').get('href')
             title = card.find('a', class_='serp-item__title').text.strip()
             company = ' '.join(card.find('a', attrs={'data-qa': 'vacancy-serp__vacancy-employer'}).text.strip().split())
-            city = ' '.join(card.find('div', attrs={'data-qa': 'vacancy-serp__vacancy-address'}).text.strip().split())
+            # city = ' '.join(card.find('div', attrs={'data-qa': 'vacancy-serp__vacancy-address'}).text.strip().split())
             content_data = requests.get(href, headers=headers)
             if content_data.ok:
                 soup = BeautifulSoup(content_data.text, 'lxml')
@@ -27,10 +27,10 @@ def get_data(html, url, errors, headers):
 
             data = {
                 'title': title,
-                'href': href,
+                'url': href,
                 'company': company,
-                'content': content,
-                'city': city
+                'description': content,
+                # 'city': city
             }
             datas.append(data)
         # write_json(datas)

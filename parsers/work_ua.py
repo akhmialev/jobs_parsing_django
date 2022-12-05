@@ -22,15 +22,15 @@ def get_data(html, url, errors):
             href = card.find('h2').find('a').get('href')
             company = card.find('div', class_='add-top-xs').find('span').text.strip()
             content = ' '.join(card.find('p', class_='overflow text-muted add-top-sm cut-bottom').text.strip().split())
-            city = ' '.join(
-                card.find('div', class_="add-top-xs").find('span', class_='middot').next.text.strip().split())
+            # city = ' '.join(
+            #     card.find('div', class_="add-top-xs").find('span', class_='middot').next.text.strip().split())
 
             data = {
                 'title': title,
                 'url': domain + href,
                 'description': content,
                 'company': company,
-                'city': city
+                # 'city': city
             }
             datas.append(data)
         # write_json(datas)

@@ -20,14 +20,14 @@ def get_data(html, errors, url):
             href = element.find('div', class_='title').find('a').get('href')
             company = element.find('div', class_='title').find('a', class_='company').text.strip()
             content = ' '.join(element.find('div', class_='sh-info').text.strip().split())
-            city = element.find('span', class_='cities').text.strip().split(',')
+            # city = element.find('span', class_='cities').text.strip().split(',')
 
             data = {
                 'title': title,
                 'url': href,
                 'company': company,
-                'content': content,
-                'city': city
+                'description': content,
+                # 'city': city
             }
             datas.append(data)
         # write_json(datas)

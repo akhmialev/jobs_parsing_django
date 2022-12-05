@@ -21,17 +21,13 @@ def get_data(html, errors, url):
             href = elemnt.find('a', class_='profile').get('href')
             company = ' '.join(elemnt.find('div', class_='list-jobs__details__info').find('a').text.strip().split())
             content = ' '.join(elemnt.find('div', class_='list-jobs__description').find('p').text.strip().split())
-            city = elemnt.find('span', class_='location-text').text.strip().split(',')
-            citys = []
-            for c in city:
-                c = c.strip().replace('\n', ' ')
-                citys.append(c)
+            # city = elemnt.find('span', class_='location-text').text.strip().split(',')[0]
             data = {
                 'title': title,
                 'url': domain + href,
                 'company': company,
-                'content': content,
-                'city': citys
+                'description': content,
+                # 'city': city
             }
             datas.append(data)
         # write_json(datas)
@@ -60,3 +56,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
