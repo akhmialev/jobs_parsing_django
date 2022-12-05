@@ -10,7 +10,7 @@ from fake_useragent import UserAgent
 #         json.dump(datas, file, ensure_ascii=False, indent=4)
 
 
-def get_data(html, url, errors, headers):
+def get_data(html, url, errors, headers, city=None, language=None):
     soup = BeautifulSoup(html, 'lxml')
     cards = soup.find_all('div', class_='serp-item')
     datas = []
@@ -30,7 +30,8 @@ def get_data(html, url, errors, headers):
                 'url': href,
                 'company': company,
                 'description': content,
-                # 'city': city
+                'city_id': city,
+                'language_id': language
             }
             datas.append(data)
         # write_json(datas)
@@ -47,7 +48,7 @@ def get_html(url, headers, errors):
         errors.append({'url': url, 'title': 'Page do not response'})
 
 
-def main(url):
+def main(url, city=None, language=None):
     ua = UserAgent()
     headers = {'User-Agent': ua.random}
     errors = []

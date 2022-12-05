@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 #         json.dump(data, file, ensure_ascii=False, indent=4)
 
 
-def get_data(html, url, errors):
+def get_data(html, url, errors, city=None, language=None):
     domain = 'https://www.work.ua'
     soup = BeautifulSoup(html, 'lxml')
     cards = soup.find_all('div', class_='card card-hover card-visited wordwrap job-link')
@@ -30,7 +30,8 @@ def get_data(html, url, errors):
                 'url': domain + href,
                 'description': content,
                 'company': company,
-                # 'city': city
+                'city_id': city,
+                'language_id': language
             }
             datas.append(data)
         # write_json(datas)
@@ -47,7 +48,7 @@ def get_html(url, headers, errors):
         errors.append({'url': url, 'title': 'Page do not response'})
 
 
-def main(url):
+def main(url, city=None, language=None):
     ua = UserAgent()
     headers = {'User-Agent': ua.random}
     errors = []
