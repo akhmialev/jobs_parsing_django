@@ -11,6 +11,9 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
+        <form method="post" action="{% url 'accounts:delete' %}"> {% csrf_token %}
+            <button type="submit" class="btn btn-danger my-3">Удалить</button>
+        </form>
     </div>
 </div>
 {% endblock %}
