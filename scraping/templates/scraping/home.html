@@ -3,28 +3,16 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-{%for v in vacancy%}
-<div class="card my-3">
-    <h5 class="card-header"><a href="{{v.url}}" target="_blank">{{v.title}}</a></h5>
-    <div class="card-body">
-        <h4>Компнания: {{ v.company }}</h4>
-        <p class="card-text">{{v.description|truncatewords:100}}</p>
-        <p>{{ v.city.name }} | {{ v.language.name }} | <small>{{ v.timestamp|date:"SHORT_DATE_FORMAT" }}</small></p>
-    </div>
-</div>
-{% empty %}
 <div class="row">
-        <div class="col-md-6 mx-auto">
-        <h3>По вашему запросу ничего не найдено.</h3>
+    <div class="col">
+        <h2 class="text-center my-3">Сервис по сбору и рассылке вакансий</h2>
     </div>
 </div>
 
-{% endfor %}
-
-
 <div class="row">
-    <div class="col-md-6 mx-auto">
-        <form method="get" action="">
+    <div class="col-md-8 mx-auto">
+        <h4 class="text-center my-2">Для просмотра вакансий заполните форму по одному из полей</h4>
+        <form method="get" action="{% url 'list' %}">
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Найти</button>
         </form>

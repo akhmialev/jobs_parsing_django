@@ -71,6 +71,7 @@ tmp_tasks = [(func, data['url_data'][key], data['city'], data['language'])
 #         j, e = func.main(url, city=data['city'], language=data['language'])
 #         jobs += j
 #         errors += e
+
 tasks = asyncio.wait([loop.create_task(main(f)) for f in tmp_tasks])
 loop.run_until_complete(tasks)
 loop.close()
